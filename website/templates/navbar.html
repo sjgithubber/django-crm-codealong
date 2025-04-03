@@ -16,8 +16,12 @@
           {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-          </li>
+          </li> 
           {% else %}
+          <li class="nav-item">
+            <!-- This url keyword uses views for checking url to pass it to -->
+            <a class="nav-link" href="{% url 'register_user' %}">Register</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'home' %}">Login</a>
           </li>
