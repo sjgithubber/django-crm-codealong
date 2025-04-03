@@ -1,3 +1,5 @@
+# this file to test the connection with mysql
+
 # used the docker image of mysql version 8.0 to connect mysql with django
 # pip install mysql mysql-connector-python mysql-connector
 # either of connector or connector-python works so only used the python one
