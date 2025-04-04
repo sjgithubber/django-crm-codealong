@@ -20,6 +20,7 @@ class SignUpForm(UserCreationForm):
 		self.fields['username'].label = ''
 		self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
 
+        # to match the two passwords, same class?
 		self.fields['password1'].widget.attrs['class'] = 'form-control'
 		self.fields['password1'].widget.attrs['placeholder'] = 'Password'
 		self.fields['password1'].label = ''
