@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
+from .forms import SignUpForm
 # Create your views here.
 # def home(request):
 #     return render(request, 'home.html', {})
@@ -44,4 +45,21 @@ def logout_user(request):
     return redirect('home')
 
 def register_user(request):
-    return render(request, 'register_user.html', {})
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # authenticate and login, we login the user after they create account
+            # no email confirmation for now
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password = password)
+            login(request, user)
+            messages.success(request, "Registration Successful")
+            return redirect('home')
+    else:
+        form = SignUpForm()
+        # passes the form into the register_user.html
+        return render(request, 'register_user.html', {'form':form})
+
+# using the imported signup form
