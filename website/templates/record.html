@@ -2,5 +2,24 @@
 {% block content %}
 
 <h3>Database Record:</h3>
-
+<div class ="table-responsive"></div>
+<table class="table table-success table-striped-columns table-hover table-bordered">
+<thead class="table-light">
+    <tr>
+        <th scope="col">#Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+    </tr>
+</thead>    
+<tbody class="table-group-divider">
+    <tr>
+        <td scope="col">{{ db_record.id }}</td>
+        <td scope="col">{{ db_record }}</td>
+        <td scope="col">{{ db_record.email }}</td>
+        <td scope="col">{{ db_record.phone }}</td>
+    </tr>
+</tbody>
+</table>
+</div>
 {% endblock %}
