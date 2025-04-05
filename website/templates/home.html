@@ -25,7 +25,10 @@
           <tbody class="table-group-divider">
         {% for record in records %}
               <tr>
-                <th scope="col">{{ forloop.counter }}</th>
+                <!-- django creates id by default so didn't really need this but works for us -->
+                 <!-- this is incase the primary key is set as something else, so we need to make order -->
+                <!-- <th scope="col">{{ forloop.counter }}</th> -->
+                 <th scope="col">{{ record.id }}</th>
                 <td scope="col">{{ record }}</td >
                 <td scope="col">{{ record.email }}</td >
                 <td scope="col">{{ record.phone }}</td >

@@ -75,3 +75,14 @@ def register_user(request):
         return render(request, 'register_user.html', {'form':form})
         # this return is for GET requests since django.views must always return an Http Response object
     return render(request, 'register_user.html', {'form':form})
+
+
+def record_data(request, pk):
+    if request.user.is_authenticated:
+        # look up records
+        # get single record using primary key
+        db_record = Record.objects.get(id=pk)
+        return render(request, 'record.html', {'db_record':db_record})
+    else:
+        meesages.success(request, "You must be logged in to view that page!")
+        return redirect('home')
