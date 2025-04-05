@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
 from .forms import SignUpForm
+# this is to make it viewable in page
+from .models import Record
 # Create your views here.
 # def home(request):
 #     return render(request, 'home.html', {})
@@ -12,7 +14,10 @@ from .forms import SignUpForm
 # In django settings have set the debug=False, have set the allowed_hosts next, to localhost address, 127.0.0.1
 
 def home(request):
-    # check if person is logged in
+    # assigns all the objects in class to the variable
+    records = Record.objects.all()
+
+    # check to see if logging in
     if request.method == 'POST':
         # username = request.POST.get('username')
         # strip whitespaces
@@ -25,6 +30,8 @@ def home(request):
         
         # authenticate
         user = authenticate(request, username=username, password=passwd)
+
+        # check if person is logged in
         if user is not None:
             login(request, user)
             messages.success(request, "You have logged in")
@@ -33,7 +40,7 @@ def home(request):
             messages.success(request, "There was an error logging in, Please Try Again! ")
             return redirect('home')
     else:
-        return render(request, 'home.html', {})
+        return render(request, 'home.html', {'records':records})
 
 # def login_user(request):
 #     pass
@@ -45,6 +52,7 @@ def logout_user(request):
     return redirect('home')
 
 def register_user(request):
+# using the imported signup form
     if request.method == 'POST':
         # we init the class here
         form = SignUpForm(request.POST)
@@ -67,5 +75,3 @@ def register_user(request):
         return render(request, 'register_user.html', {'form':form})
         # this return is for GET requests since django.views must always return an Http Response object
     return render(request, 'register_user.html', {'form':form})
-
-# using the imported signup form
