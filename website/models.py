@@ -1,6 +1,7 @@
 from django.db import models
 
 
+# django adds an s after the class name, so it appears as Records in admin layer
 class Record(models.Model):
     # need to make migrations for django to convert this into database code
     # then migrate that code
