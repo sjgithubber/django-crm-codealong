@@ -35,8 +35,8 @@ def home(request):
     else:
         return render(request, 'home.html', {})
 
-def login_user(request):
-    pass
+# def login_user(request):
+#     pass
 
 
 def logout_user(request):
@@ -51,7 +51,7 @@ def register_user(request):
         # validation for form is checked here?
         if form.is_valid():
             form.save()
-            # authenticate and login, we login the user after they create account
+            # authenticate and login
             # no email confirmation for now
             # also can't register user something is missing
             username = form.cleaned_data['username']
@@ -59,11 +59,11 @@ def register_user(request):
             user = authenticate(username=username, password = password)
             login(request, user)
             messages.success(request, "Registration Successful")
-            messages.success(request, "You have been logged in!")
+            # messages.success(request, "You have been logged in!")
             return redirect('home')
     else:
         form = SignUpForm()
         # passes the form into the register_user.html
-        return render(request, 'register_user.html', {'form':form})
+    return render(request, 'register_user.html', {'form':form})
 
 # using the imported signup form
