@@ -46,16 +46,20 @@ def logout_user(request):
 
 def register_user(request):
     if request.method == 'POST':
+        # we init the class here
         form = SignUpForm(request.POST)
+        # validation for form is checked here?
         if form.is_valid():
             form.save()
             # authenticate and login, we login the user after they create account
             # no email confirmation for now
+            # also can't register user something is missing
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password = password)
             login(request, user)
             messages.success(request, "Registration Successful")
+            messages.success(request, "You have been logged in!")
             return redirect('home')
     else:
         form = SignUpForm()

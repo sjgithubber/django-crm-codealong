@@ -104,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
         # added this funtionality
         'OPTIONS':{
             'min_length': 8,
-            'max_length': 20,
+            # 'max_length': 20,
         }
     },
     {
