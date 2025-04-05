@@ -64,6 +64,8 @@ def register_user(request):
     else:
         form = SignUpForm()
         # passes the form into the register_user.html
+        return render(request, 'register_user.html', {'form':form})
+        # this return is for GET requests since django.views must always return an Http Response object
     return render(request, 'register_user.html', {'form':form})
 
 # using the imported signup form
