@@ -15,6 +15,7 @@ from .models import Record
 
 def home(request):
     # assigns all the objects in class to the variable
+    # get all variables in class
     records = Record.objects.all()
 
     # check to see if logging in
@@ -39,6 +40,7 @@ def home(request):
         else:
             messages.success(request, "There was an error logging in, Please Try Again! ")
             return redirect('home')
+    # this block will give back the home page and records variable as records to manipulate in home.html
     else:
         return render(request, 'home.html', {'records':records})
 
@@ -82,7 +84,8 @@ def record_data(request, pk):
         # look up records
         # get single record using primary key
         db_record = Record.objects.get(id=pk)
+        # the dict that we send here allows us to view it in record.html
         return render(request, 'record.html', {'db_record':db_record})
     else:
-        meesages.success(request, "You must be logged in to view that page!")
+        messages.success(request, "You must be logged in to view that page!")
         return redirect('home')

@@ -1,7 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3>Database Record:</h3>
+<h3>Record Card:</h3>
+<!-- turning it into a card instead of a table or some other one if better found -->
+ <!-- so far card seems good since we can get the z -->
+ 
+ <!-- card -->
+ <div class="card" style="width: 18rem;">
+    <!-- <img src="..." class="card-img-top" alt="..."> can be used for posting the image of the person if in database, but that takes too much space--> 
+    <div class="card-header">
+        <h3><strong>{{ db_record }}</strong></h3>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Details:</h5>
+      <p class="card-text">Email: {{ db_record.email }}</p>
+      <p class="card-text">Phone: {{ db_record.phone }}</p>
+      <a href="{% url 'home' %}" class="btn btn-secondary">Homepage</a>
+    </div>
+    <a href="{% url 'delete_record' %}" class="btn btn-danger">Delete</a>
+  </div>
+
+<!-- 
+    instead of table we will try card now to display data 
 <div class ="table-responsive"></div>
 <table class="table table-success table-striped-columns table-hover table-bordered">
 <thead class="table-light">
@@ -13,6 +33,7 @@
     </tr>
 </thead>    
 <tbody class="table-group-divider">
+
     <tr>
         <td scope="col">{{ db_record.id }}</td>
         <td scope="col">{{ db_record }}</td>
@@ -20,6 +41,6 @@
         <td scope="col">{{ db_record.phone }}</td>
     </tr>
 </tbody>
-</table>
+</table> -->
 </div>
 {% endblock %}
