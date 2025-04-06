@@ -16,8 +16,9 @@
       <p class="card-text">Email: {{ db_record.email }}</p>
       <p class="card-text">Phone: {{ db_record.phone }}</p>
       <a href="{% url 'home' %}" class="btn btn-secondary">Homepage</a>
+      <a href="{% url 'delete_record' db_record.id %}" class="btn btn-danger">Delete</a>
     </div>
-    <a href="{% url 'delete_record' %}" class="btn btn-danger">Delete</a>
+    
   </div>
 
 <!-- 
