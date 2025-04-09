@@ -105,6 +105,10 @@ def add_record(request):
     # if request.user.is_authenticated:
         # db_record = Record.objects.get()
         # if request.method == 'POST': return page else return the same page 
+    # the records added this way will have id assigned by database
+    # if one record is deleted and another is created it will have new id
+    # that is to say if deleted item id no. 3 then added another it will have item id  no.4 and there will only be three elements
+    # this causes issues in ordering
     form = AddRecordForm(request.POST or None)
     if request.user.is_authenticated:
         if request.method == "POST":
@@ -112,7 +116,26 @@ def add_record(request):
                 add_record = form.save()
                 messages.success(request, "Record added Successfully!")
                 return redirect('home')
+            else:
+                messages.success(request, "Form is invalid!")
+                return redirect('home')
         return render(request, 'add_record.html', {'form': form})
     else:
         messages.info(request, "You are not logged in!")
+        return redirect('home')
+    
+def update_record(request, pk):
+    if request.user.is_authenticated:
+        current_record = Record.objects.get(id=pk)
+        form = AddRecordForm(request.POST or None, instance=current_record)        
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Record Updated")
+            return redirect('home')
+        return render(request, 'update_record.html', {'form':form})
+        # else:
+        #     messages.succes(request, "invalid form")
+        #     return redirect('home')
+    else:
+        messages.succes(request, 'You are not logged in!')
         return redirect('home')

@@ -1,0 +1,35 @@
+ALTER TABLE your_table ADD COLUMN display_order INT UNSIGNED NOT NULL;
+--change your_table to table_name
+DELIMITER $$
+CREATE PROCEDURE MaintainOrdering()
+BEGIN
+    SET @row_number = 0;
+    UPDATE your_table
+    SET display_order = (@row_number := @row_number + 1)
+    ORDER BY id; -- Or your preferred ordering
+END$$
+DELIMITER ;
+-- After delete trigger
+DELIMITER $$
+CREATE TRIGGER AfterDeleteOrder
+AFTER DELETE ON your_table
+FOR EACH ROW
+BEGIN
+    CALL MaintainOrdering();
+END$$
+DELIMITER ;
+
+-- After insert trigger
+DELIMITER $$
+CREATE TRIGGER AfterInsertOrder
+AFTER INSERT ON your_table
+FOR EACH ROW
+BEGIN
+    CALL MaintainOrdering();
+END$$
+DELIMITER ;
+
+-- Get ordered results
+SELECT id, display_order, other_columns 
+FROM website_record
+ORDER BY display_order;

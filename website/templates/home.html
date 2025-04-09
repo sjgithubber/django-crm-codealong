@@ -29,8 +29,9 @@
                  <!-- this is incase the primary key is set as something else, so we need to make order -->
                 <!-- <th scope="col">{{ forloop.counter }}</th> -->
                 <!-- # clickable id -->
-                <th scope="col"><a href="{% url 'record' record.id%}">{{ record.id }}</a></th>
-                <td scope="col">{{ record }}</td >
+                <!-- <th scope="col"><a href="{% url 'record' record.id%}">{{ record.id }}</a></th> -->
+                <th scope="col"><a href="{% url 'record' record.id %}">{{ record.id }}</a></th>
+                <td scope="col"><a href="{% url 'record' record.id %}">{{ record }}</a></td >
                 <td scope="col">{{ record.email }}</td >
                 <td scope="col">{{ record.phone }}</td >
               </tr>

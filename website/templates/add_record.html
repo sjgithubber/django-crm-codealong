@@ -9,7 +9,7 @@
         
         {% csrf_token %}
         {{ form.as_p }}
-        
+        <a href="{% url 'home' %}" class="btn btn-secondary">Homepage</a>        
         <button type="submit" class="btn btn-outline-secondary">Add Record</button>
     </form>
 </div>
