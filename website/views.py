@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
-from .forms import SignUpForm
+from .forms import SignUpForm, AddRecordForm
 # this is to make it viewable in page
 from .models import Record
 # Create your views here.
@@ -96,6 +96,23 @@ def delete_record(request, pk):
         delete_it.delete()
         messages.success(request, "The user_record was successfully deleted")
         return redirect('home')
+    else:
+        messages.info(request, "You are not logged in!")
+        return redirect('home')
+    
+
+def add_record(request):
+    # if request.user.is_authenticated:
+        # db_record = Record.objects.get()
+        # if request.method == 'POST': return page else return the same page 
+    form = AddRecordForm(request.POST or None)
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            if form.is_valid():
+                add_record = form.save()
+                messages.success(request, "Record added Successfully!")
+                return redirect('home')
+        return render(request, 'add_record.html', {'form': form})
     else:
         messages.info(request, "You are not logged in!")
         return redirect('home')
